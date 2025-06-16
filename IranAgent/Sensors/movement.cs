@@ -10,12 +10,18 @@ namespace IranAgent.Sensors
     {
         public Movement()
         {
-            Type = "movement";
+            Name = "movement";
+            Type = "audio";
         }
 
-        public override void Activate()
+        public override void TrueActivate()
         {
-            HistoryActivate += 1;
+            CountTrueActivate += 1;
+        }
+
+        public override void FalseActivate()
+        {
+            CountFalseActivate += 1;
         }
     }
 }

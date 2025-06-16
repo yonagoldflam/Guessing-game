@@ -9,6 +9,6 @@ namespace IranAgent
 {
     public static class InitializationAgents
     {
-        public static IraniAgent Agent1 = new IraniAgent("thermal", "thermal");   
+        public static IraniAgent Agent1 = new IraniAgent("thermal", "selular");   
     }
 }

@@ -12,65 +12,108 @@ namespace IranAgent
     {
         public static List<string> CopyWeakAgent1 = new List<string>(InitializationAgents.Agent1.Weak);
 
-        public static List<Sensor> SensorsList = new List<Sensor>();
-        public static int GuessingTimes = 0;
+        public static List<Sensor> AudioSensors = new List<Sensor>();
+        public static List<Sensor> PulseSensors = new List<Sensor>();
+        public static List<string> SuccessGuesses = new List<string>();
 
-        public static void ActivateChooseSensors()
+
+        public static Sensor GenarateNewSensor()
         {
-            foreach (Sensor sensor in SensorsList)
+            bool flag = true;
+            while (flag)
             {
-                sensor.Activate();
+                Console.WriteLine("enter sensor type. to exit enter: exit");
+                switch (Console.ReadLine().ToLower())
+                {
+                    case "selular":
+                        return new Selular();
+                        break;
+                    case "movement":
+                        return new Movement();
+                        break;
+                    case "thermal":
+                        return new Thermal();
+                        break;
+
+                    case "exit":
+                        flag = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("the sensor is not found, plees try again");
+                        break;
+                }
             }
+            return null;
         }
 
-        public static Sensor GenarateNewSensor(string type)
+        public static void AddsToAppropriateList(Sensor sensor)
         {
-            switch (type.ToLower())
+            switch (sensor.Type)
             {
-                case "selular":
-                    return new Selular();
-                    break;
-                case "movement":
-                    return new Movement();
-                    break;
-                case "thermal":
-                    return new Thermal();
+                case "audio":
+                    AudioSensors.Add(sensor);
                     break;
 
-                default:
-                    return null;
-            }
-
+                case "Pulse":
+                    PulseSensors.Add(sensor);
+                    break;
+            } 
         }
 
         public static bool ComplianceCheckVulnerability(Sensor sensor)
         {
             foreach (string WeakSensor in CopyWeakAgent1)
             {
-                if (sensor.HistoryActivate>0 && sensor.Type == WeakSensor)
+                if (sensor.Name == WeakSensor)
                 {
-                    CopyWeakAgent1.Remove(WeakSensor);
+                    CopyWeakAgent1.Remove(sensor.Name);
+                    SuccessGuesses.Add(sensor.Name);
                     return true;
                 }
             }
             return false;
         }
 
-        public static string Equality()
+        public static bool Equality()
         {
-            foreach (Sensor sensor in SensorsList)
+            foreach (Sensor sensor in AudioSensors)
             {
                 if (ComplianceCheckVulnerability(sensor))
-                    GuessingTimes++;
+                {
+                    sensor.TrueActivate();
+                }
             }
+            foreach (Sensor sensor in PulseSensors)
+            {
+                if (ComplianceCheckVulnerability(sensor))
+                {
+                    sensor.TrueActivate();
 
-            return $"{GuessingTimes}/{InitializationAgents.Agent1.Weak.Count()}";
+                }
+                else
+                {
+                    sensor.FalseActivate();
+
+                }
+                if (sensor.CountFalseActivate >= 3)
+                {
+                    SuccessGuesses.Remove(sensor.Name);
+                    sensor.CountFalseActivate = 0;
+                }
+
+
+
+            }
+            string TxtEqualy = $"{SuccessGuesses.Count()}/{InitializationAgents.Agent1.Weak.Count()}";
+            Console.WriteLine(TxtEqualy);
+            if (TxtEqualy == new string(TxtEqualy.Reverse().ToArray()))
+            {
+                SuccessGuesses.Clear();
+                return false; //for agent status
+            }
+            return true; //for agent status
+            
         }
-
-        public static bool CheckDone(string TxtEqualy)
-        {
-            return TxtEqualy == new string(TxtEqualy.Reverse().ToArray());
-        }
-
     }
 }

@@ -8,11 +8,18 @@ namespace IranAgent.Sensors
 {
     public abstract class Sensor
     {
-        public string Type ;
-        public int HistoryActivate = 0;
-        public virtual void Activate()
+        public string Name;
+        public string Type;
+        public int CountTrueActivate = 0;
+        public int CountFalseActivate = 0;
+        public virtual void TrueActivate()
         {
-            HistoryActivate += 1;
+            CountTrueActivate += 1;
+        }
+
+        public virtual void FalseActivate() 
+        { 
+            CountFalseActivate += 1;
         }
     }
 }

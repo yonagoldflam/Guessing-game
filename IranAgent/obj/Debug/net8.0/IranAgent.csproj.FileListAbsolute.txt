@@ -12,3 +12,4 @@ C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent
 C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.pdb
 C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.genruntimeconfig.cache
 C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\ref\IranAgent.dll
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.sourcelink.json

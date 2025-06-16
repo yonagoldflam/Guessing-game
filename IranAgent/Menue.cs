@@ -17,16 +17,10 @@ namespace IranAgent
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        bool Guessesd = false;
-                        while (!Guessesd)
+                        while (InitializationAgents.Agent1.Status)
                         {
-                            Console.WriteLine("enter sensor type");
-                            Manager.SensorsList.Add(Manager.GenarateNewSensor(Console.ReadLine()));
-                            Manager.ActivateChooseSensors();
-                            Console.WriteLine(Manager.SensorsList[0].Type);
-                            string TxtResalt = Manager.Equality();
-                            Console.WriteLine(TxtResalt);   
-                            Guessesd = Manager.CheckDone(TxtResalt);
+                            Manager.AddsToAppropriateList(Manager.GenarateNewSensor());
+                            InitializationAgents.Agent1.Status = Manager.Equality();
                         }
                         break;
 
