@@ -10,6 +10,7 @@ namespace IranAgent.Agents
     public class IraniAgent
     { 
         public List<string> Weak = new List<string>();
+        public bool Status = true;
 
         public IraniAgent(string WeakSensor1, string WeakSensor2)
         {

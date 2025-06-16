@@ -10,13 +10,19 @@ namespace IranAgent.Sensors
     {
         public Thermal() 
         { 
-            Type = "thermal";
-            
+            Name = "thermal";
+            Type = "audio";
         }
 
-        public override void Activate()
+        public override void TrueActivate()
         {
-            HistoryActivate += 1;
+            CountTrueActivate += 1;
+        }
+
+        public override void FalseActivate()
+        {
+            CountFalseActivate += 1;
         }
     }
 }
+
