@@ -1,0 +1,14 @@
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.AssemblyInfoInputs.cache
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.AssemblyInfo.cs
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.csproj.CoreCompileInputs.cache
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\bin\Debug\net8.0\IranAgent.exe
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\bin\Debug\net8.0\IranAgent.deps.json
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\bin\Debug\net8.0\IranAgent.runtimeconfig.json
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\bin\Debug\net8.0\IranAgent.dll
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\bin\Debug\net8.0\IranAgent.pdb
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.dll
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\refint\IranAgent.dll
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.pdb
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\IranAgent.genruntimeconfig.cache
+C:\Users\HOME\OneDrive\שולחן העבודה\תרגול c#\IranAgent\IranAgent\obj\Debug\net8.0\ref\IranAgent.dll
