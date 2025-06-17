@@ -11,7 +11,7 @@ namespace IranAgent.Sensors
         public Selular()
         {
             Name = "selular";
-            Type = "Pulse";
+            Type = "pulse";
         }
 
         public override void TrueActivate()

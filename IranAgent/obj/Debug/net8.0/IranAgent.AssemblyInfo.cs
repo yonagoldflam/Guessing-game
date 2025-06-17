@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IranAgent")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7df4a85514f3663298edbcb4f1de39c0b860d487")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6360732a55346a54f7e758440fd020137f6d359b")]
 [assembly: System.Reflection.AssemblyProductAttribute("IranAgent")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IranAgent")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

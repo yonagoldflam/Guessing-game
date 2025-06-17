@@ -20,7 +20,7 @@ namespace IranAgent
                         while (InitializationAgents.Agent1.Status)
                         {
                             Manager.AddsToAppropriateList(Manager.GenarateNewSensor());
-                            InitializationAgents.Agent1.Status = Manager.Equality();
+                            InitializationAgents.Agent1.Status = Manager.CheckAgentStatus(Manager.PrintEqualyResalt());
                         }
                         break;
 
