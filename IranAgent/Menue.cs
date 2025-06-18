@@ -17,10 +17,11 @@ namespace IranAgent
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        while (InitializationAgents.Agent1.Status)
+                        bool flagg = true;
+                        while (flagg)
                         {
-                            Manager.AddsToAppropriateList(Manager.GenarateNewSensor());
-                            InitializationAgents.Agent1.Status = Manager.CheckAgentStatus(Manager.PrintEqualyResalt());
+                            Manager.SensorActivation(Manager.GenarateSensor());
+                            Manager.SoldierDiscovered(Manager.PrintEqualyResalt());
                         }
                         break;
 
