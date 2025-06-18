@@ -7,15 +7,20 @@ using IranAgent.Sensors;
 
 namespace IranAgent.Agents
 {
-    public class IraniAgent
+    public class FootSoldier
     { 
         public List<string> Weaknes = new List<string>();
         public bool Status = true;
+        public int ContAttack = 0;
+        public string Type = "foot soldier";
 
-        public IraniAgent(string WeakSensor1, string WeakSensor2)
+        public FootSoldier(string WeakSensor1, string WeakSensor2)
         {
             Weaknes.Add(WeakSensor1);
             Weaknes.Add(WeakSensor2);
         }
+
+        public virtual void CarryingOutAttack()
+            { }
     }
 }
