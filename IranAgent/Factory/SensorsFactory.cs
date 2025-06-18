@@ -11,33 +11,27 @@ namespace IranAgent.Factory
     {
         public static List<Sensor> Sensors = new List<Sensor>();
         public static Sensor GanarateSensorInstance(string sensorName)
-        {
-            Sensor Exist = ContainsSensorName(sensorName);
-            if (Exist != null)
-                return Exist;
+        {            
+            Sensor sensor = ContainsSensorName(sensorName);
+            if (sensor != null)
+                return sensor;
                 
             switch (sensorName)
             {
                 case "selular":
-                    Sensor selular = new Selular();
-                    Sensors.Add(selular);
-                    return selular;
+                    sensor = new Selular();                                      
                     break;
                 case "movement":
-                    Sensor movement = new Movement();
-                    Sensors.Add(movement);
-                    return movement;
+                    sensor = new Movement();
                     break;
                 case "thermal":
-                    Sensor thermal = new Thermal();
-                    Sensors.Add(thermal);
-                    return thermal;
+                    sensor = new Thermal();
                     break;
                 default:
                     return null;
-            }               
-            
-           
+            }
+            Sensors.Add(sensor);
+            return sensor;                     
         }
 
         public static Sensor ContainsSensorName(string sensorName)

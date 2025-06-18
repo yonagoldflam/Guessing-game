@@ -17,9 +17,10 @@ namespace IranAgent.Sensors
             CountTrueActivate += 1;
         }
 
-        public virtual void FalseActivate() 
+        public virtual bool FalseActivate() 
         { 
             CountFalseActivate += 1;
+            return false;
         }
     }
 }
