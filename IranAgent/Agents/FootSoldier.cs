@@ -9,18 +9,19 @@ namespace IranAgent.Agents
 {
     public class FootSoldier
     { 
-        public List<string> Weaknes = new List<string>();
+        public List<string> Weaknes;
         public bool Status = true;
         public int ContAttack = 0;
         public string Type = "foot soldier";
 
-        public FootSoldier(string WeakSensor1, string WeakSensor2)
+        public FootSoldier(List<string> weaknes)
         {
-            Weaknes.Add(WeakSensor1);
-            Weaknes.Add(WeakSensor2);
+            Weaknes = weaknes;
         }
 
-        public virtual void CarryingOutAttack()
-            { }
+        public virtual bool CarryingOutAttack()
+        {
+            return false;
+        }
     }
 }

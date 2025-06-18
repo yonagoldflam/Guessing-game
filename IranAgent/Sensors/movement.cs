@@ -19,9 +19,9 @@ namespace IranAgent.Sensors
             CountTrueActivate += 1;
         }
 
-        public override void FalseActivate()
+        public override bool FalseActivate()
         {
-            CountFalseActivate += 1;
+            return false;
         }
     }
 }

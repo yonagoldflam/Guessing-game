@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IranAgent.Agents;
 using IranAgent.Factory;
+using System.Collections;
 
 namespace IranAgent
 {
@@ -41,34 +42,19 @@ namespace IranAgent
         public static void SensorActivation(Sensor sensor)
         {
             if (sensor != null)
-            {
-                switch (sensor.Type)
+            {                                   
+                if (ComplianceCheckVulnerability(sensor))
                 {
-                    case "audio":
-                        if (ComplianceCheckVulnerability(sensor))
-                        {
-                            sensor.TrueActivate();
-                        }
-                        break;
-
-                    case "pulse":
-                        if (ComplianceCheckVulnerability(sensor))
-                        {
-                            sensor.TrueActivate();
-                        }
-                        else
-                        {
-                            sensor.FalseActivate();
-                        }
-                        if (sensor.CountFalseActivate >= 3)
-                        {
-                            bool a = SuccessGuesses.Remove(sensor.Name);
-                            sensor.CountFalseActivate = 0;
-                            if (a)
-                                CurrCopyWeaknes.Add(sensor.Name);
-                        };
-                        break;
+                    sensor.TrueActivate();
                 }
+                else
+                {
+                    if (sensor.FalseActivate())
+                    {
+                        bool a = SuccessGuesses.Remove(sensor.Name);
+                        if (a) CurrCopyWeaknes.Add(sensor.Name);
+                    }
+                }                                      
             }
         }
 
@@ -87,25 +73,50 @@ namespace IranAgent
         }
         
         public static string PrintEqualyResalt()
-        {
-            string TxtEqualy = $"{SuccessGuesses.Count()}/{CurrentSoldier.Weaknes.Count()}";
-            Console.WriteLine(TxtEqualy);            
+        {          
+            string TxtEqualy = $"{SuccessGuesses.Count()}/{CurrentSoldier.Weaknes.Count()}";           
+            Console.WriteLine(TxtEqualy);
+            EndTurn();
             return TxtEqualy;
         }
 
+        public static void EndTurn()
+        {
+            CountTurns++;
+            ClearGuessesAt10Turn();
+            if (CurrentSoldier.CarryingOutAttack()) Attacking();
+        }
+        
         public static void SoldierDiscovered(string TxtEqualy)
         {
             if (TxtEqualy == new string(TxtEqualy.Reverse().ToArray()))
             {
                 SuccessGuesses.Clear();
-                CountTurns++;
-                if (CountTurns % 10 == 0)
-                    SuccessGuesses.Clear();
-                CurrentSoldier.CarryingOutAttack();
                 UpdateCurrentSoldier();
                 Console.WriteLine($"You have discovered the agent!!.\nNow try to discover the next agent which is of type: {CurrentSoldier.Type}");
             }
+        }
 
+        public static void Attacking()
+        {
+            if (SuccessGuesses.Count > 0)
+            {
+                Random random = new Random();
+                int randomIndex = random.Next(SuccessGuesses.Count);
+                CurrCopyWeaknes.Add(SuccessGuesses[randomIndex]);
+                SuccessGuesses.RemoveAt(randomIndex);
+                Console.WriteLine("=========ATTACK========");
+            }
+        }
+
+        public static void ClearGuessesAt10Turn()
+        {
+            if (CountTurns % 10 == 0)
+            {
+                CurrCopyWeaknes.AddRange(SuccessGuesses);
+                SuccessGuesses.Clear();
+                Console.WriteLine("==10TURNS==");
+            }
         }
     }
 }
