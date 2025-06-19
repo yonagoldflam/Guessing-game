@@ -159,12 +159,12 @@ namespace IranAgent
         public static void LoadSoldierList()
         {
             StartRound = DateTime.Now;
-
+            SoldiersFactory.Soldires = SoldiersDal.ReadAllSoldiers();
         }
 
         public static void EndRound()
         {
-            Console.WriteLine(CurrentSoldier.Id + CurrentSoldier.Name);
+            Console.WriteLine(CurrentSoldier.Id+ CurrentSoldier.Name);
             GameRoundDal.InsertRound(new Round(UserDal.GetPlayerID(CurrentUser), CurrentSoldier.Id, StartRound, CountTurns-CurrentSoldier.Weaknesses.Count()));
         }
     }
