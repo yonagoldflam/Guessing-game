@@ -10,6 +10,7 @@ using System.Collections;
 using malshinon.db;
 using IranAgent.Dal;
 using Org.BouncyCastle.Asn1.X509;
+using IranAgent.RoundsGame;
 
 namespace IranAgent
 {
@@ -19,6 +20,8 @@ namespace IranAgent
         public static List<string> CurrCopyWeaknesses = new List<string>(CurrentSoldier.Weaknesses);
         public static List<string> SuccessGuesses = new List<string>();
         public static int CountTurns = 0;
+        public static DateTime StartRound;
+        public static string CurrentUser;
         public static MySqlData SqlData = new MySqlData();
 
         public static void UpdateCurrentSoldier()
@@ -55,8 +58,8 @@ namespace IranAgent
                 {
                     if (sensor.FalseActivate())
                     {
-                        bool a = SuccessGuesses.Remove(sensor.Name);
-                        if (a) CurrCopyWeaknesses.Add(sensor.Name);
+                        if (SuccessGuesses.Remove(sensor.Name)) CurrCopyWeaknesses.Add(sensor.Name);
+                        Console.WriteLine("=========SELULAR 3 TIMES===========");
                     }
                 }                                      
             }
@@ -81,6 +84,7 @@ namespace IranAgent
             string TxtEqualy = $"{SuccessGuesses.Count()}/{CurrentSoldier.Weaknesses.Count()}";           
             Console.WriteLine(TxtEqualy);
             EndTurn();
+            
             return TxtEqualy;
         }
 
@@ -95,6 +99,7 @@ namespace IranAgent
         {
             if (TxtEqualy == new string(TxtEqualy.Reverse().ToArray()))
             {
+                EndRound();
                 SuccessGuesses.Clear();
                 UpdateCurrentSoldier();
                 Console.WriteLine($"You have discovered the agent!!.\nNow try to discover the next agent which is of type: {CurrentSoldier.Type}");
@@ -123,7 +128,7 @@ namespace IranAgent
             }
         }
 
-        public static string GetUserName()
+        public static void GetUserName()
         {
             Console.WriteLine("enter user name");
             string userName = Console.ReadLine();
@@ -136,7 +141,7 @@ namespace IranAgent
                 UserDal.NewUser(userName);
                 Console.WriteLine("You are identified as a new user.");
             }
-            return userName;
+            CurrentUser = userName;
         }
 
         public static void InsertNewSoldier()
@@ -146,14 +151,21 @@ namespace IranAgent
             Console.WriteLine("enter the name soldier");
             if (type == "foot") 
                 SoldiersDal.NewSoldier(SoldiersFactory.GanarateFootSoldier(Console.ReadLine()));
-            else
+            else if (type == "squad")
                 SoldiersDal.NewSoldier(SoldiersFactory.GanarateSquadSoldier(Console.ReadLine()));
             Console.WriteLine("done");
         }
 
         public static void LoadSoldierList()
         {
+            StartRound = DateTime.Now;
             SoldiersFactory.Soldires = SoldiersDal.ReadAllSoldiers();
+        }
+
+        public static void EndRound()
+        {
+            Console.WriteLine(CurrentSoldier.Id+ CurrentSoldier.Name);
+            GameRoundDal.InsertRound(new Round(UserDal.GetPlayerID(CurrentUser), CurrentSoldier.Id, StartRound, CountTurns-CurrentSoldier.Weaknesses.Count()));
         }
     }
 }

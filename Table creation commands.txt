@@ -21,3 +21,7 @@ CREATE TABLE game_rounds (
     FOREIGN KEY (player_id) REFERENCES Players(player_id),
     FOREIGN KEY (soldier_id) REFERENCES Soldiers(soldier_id)
 );
+
+
+
+Error : Cannot add or update a child row: a foreign key constraint fails (`guessing_gamedb`.`game_rounds`, CONSTRAINT `game_rounds_ibfk_2` FOREIGN KEY (`soldier_id`) REFERENCES `soldiers` (`soldier_id`))
