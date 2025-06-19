@@ -1,0 +1,23 @@
+CREATE TABLE soldiers (
+    soldier_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    weaknesses TEXT,
+    type VARCHAR(50)
+);
+
+CREATE TABLE players (
+    playerID INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50)
+);
+
+
+CREATE TABLE game_rounds (
+    round_id INT AUTO_INCREMENT PRIMARY KEY,
+    player_id INT,
+    soldier_id INT,
+    start_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    end_time DATETIME,
+    wrong_attempts INT DEFAULT 0,
+    FOREIGN KEY (player_id) REFERENCES Players(player_id),
+    FOREIGN KEY (soldier_id) REFERENCES Soldiers(soldier_id)
+);

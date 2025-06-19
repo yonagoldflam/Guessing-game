@@ -4,24 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IranAgent.Agents;
+using IranAgent.Soldier;
 using IranAgent.Factory;
 using System.Collections;
+using malshinon.db;
+using IranAgent.Dal;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace IranAgent
 {
     public static class Manager
     {
         public static FootSoldier CurrentSoldier = SoldiersFactory.Soldires[SoldiersFactory.CurrentIndex];
-        public static List<string> CurrCopyWeaknes = new List<string>(CurrentSoldier.Weaknes);
+        public static List<string> CurrCopyWeaknesses = new List<string>(CurrentSoldier.Weaknesses);
         public static List<string> SuccessGuesses = new List<string>();
         public static int CountTurns = 0;
+        public static MySqlData SqlData = new MySqlData();
 
         public static void UpdateCurrentSoldier()
         {
             SoldiersFactory.NextSoldier();
             CurrentSoldier = SoldiersFactory.Soldires[SoldiersFactory.CurrentIndex];
-            CurrCopyWeaknes = new List<string>(CurrentSoldier.Weaknes);
+            CurrCopyWeaknesses = new List<string>(CurrentSoldier.Weaknesses);
         }
         
         public static Sensor GenarateSensor()
@@ -52,7 +56,7 @@ namespace IranAgent
                     if (sensor.FalseActivate())
                     {
                         bool a = SuccessGuesses.Remove(sensor.Name);
-                        if (a) CurrCopyWeaknes.Add(sensor.Name);
+                        if (a) CurrCopyWeaknesses.Add(sensor.Name);
                     }
                 }                                      
             }
@@ -60,11 +64,11 @@ namespace IranAgent
 
         public static bool ComplianceCheckVulnerability(Sensor sensor)
         {
-            foreach (string WeakSensor in CurrCopyWeaknes)
+            foreach (string WeakSensor in CurrCopyWeaknesses)
             {
                 if (sensor.Name == WeakSensor)
                 {
-                    CurrCopyWeaknes.Remove(sensor.Name);
+                    CurrCopyWeaknesses.Remove(sensor.Name);
                     SuccessGuesses.Add(sensor.Name);
                     return true;
                 }
@@ -74,7 +78,7 @@ namespace IranAgent
         
         public static string PrintEqualyResalt()
         {          
-            string TxtEqualy = $"{SuccessGuesses.Count()}/{CurrentSoldier.Weaknes.Count()}";           
+            string TxtEqualy = $"{SuccessGuesses.Count()}/{CurrentSoldier.Weaknesses.Count()}";           
             Console.WriteLine(TxtEqualy);
             EndTurn();
             return TxtEqualy;
@@ -103,7 +107,7 @@ namespace IranAgent
             {
                 Random random = new Random();
                 int randomIndex = random.Next(SuccessGuesses.Count);
-                CurrCopyWeaknes.Add(SuccessGuesses[randomIndex]);
+                CurrCopyWeaknesses.Add(SuccessGuesses[randomIndex]);
                 SuccessGuesses.RemoveAt(randomIndex);
                 Console.WriteLine("=========ATTACK========");
             }
@@ -113,10 +117,43 @@ namespace IranAgent
         {
             if (CountTurns % 10 == 0)
             {
-                CurrCopyWeaknes.AddRange(SuccessGuesses);
+                CurrCopyWeaknesses.AddRange(SuccessGuesses);
                 SuccessGuesses.Clear();
                 Console.WriteLine("==10TURNS==");
             }
+        }
+
+        public static string GetUserName()
+        {
+            Console.WriteLine("enter user name");
+            string userName = Console.ReadLine();
+            if (UserDal.UserNameIsExist(userName))
+            {
+                Console.WriteLine("Your name has been successfully recognized.");
+            }
+            else
+            {
+                UserDal.NewUser(userName);
+                Console.WriteLine("You are identified as a new user.");
+            }
+            return userName;
+        }
+
+        public static void InsertNewSoldier()
+        {
+            Console.WriteLine("enter type (foot or squad)");
+            string type = Console.ReadLine();
+            Console.WriteLine("enter the name soldier");
+            if (type == "foot") 
+                SoldiersDal.NewSoldier(SoldiersFactory.GanarateFootSoldier(Console.ReadLine()));
+            else
+                SoldiersDal.NewSoldier(SoldiersFactory.GanarateSquadSoldier(Console.ReadLine()));
+            Console.WriteLine("done");
+        }
+
+        public static void LoadSoldierList()
+        {
+            SoldiersFactory.Soldires = SoldiersDal.ReadAllSoldiers();
         }
     }
 }
