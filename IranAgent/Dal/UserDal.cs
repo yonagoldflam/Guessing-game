@@ -37,7 +37,7 @@ namespace IranAgent.Dal
             {
                 Manager.SqlData.OpenConnection();
                 cmd = new MySqlCommand(query, Manager.SqlData.connection);
-                cmd.Parameters.AddWithValue("@username", userName);
+                cmd.Parameters.AddWithValue("@userName", userName);
                 object result = cmd.ExecuteScalar();
                 int count = Convert.ToInt32(result);
 
@@ -54,6 +54,42 @@ namespace IranAgent.Dal
             }
         }
 
-        
+        public static int GetPlayerID(string userName)
+        {
+            string query = "SELECT player_id FROM players WHERE user_name = @username";
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                Manager.SqlData.OpenConnection();
+
+                cmd = new MySqlCommand(query, Manager.SqlData.connection);
+                cmd.Parameters.AddWithValue("@username", userName);
+
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return reader.GetInt32("player_id");
+                }
+
+                return -1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return -1;
+            }
+            finally
+            {
+                reader?.Close();
+                Manager.SqlData.CloseConnection();
+            }
+        }
+
+
+
+
     }
 }

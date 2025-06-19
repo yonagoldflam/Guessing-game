@@ -19,8 +19,7 @@ namespace IranAgent
                 {
                     case "1":
                         Manager.LoadSoldierList();
-                        Console.WriteLine(SoldiersFactory.Soldires.Count());
-                        string uname = Manager.GetUserName();
+                        Manager.GetUserName();
                         bool flagg = true;
                         while (flagg)
                         {
