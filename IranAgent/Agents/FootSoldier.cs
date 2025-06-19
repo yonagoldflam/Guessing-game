@@ -5,18 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using IranAgent.Sensors;
 
-namespace IranAgent.Agents
+namespace IranAgent.Soldier
 {
     public class FootSoldier
-    { 
-        public List<string> Weaknes;
-        public bool Status = true;
+    {
+        public List<string> Weaknesses;
+        public int Id;
+        public string Name;
+        public string Type;
         public int ContAttack = 0;
-        public string Type = "foot soldier";
 
-        public FootSoldier(List<string> weaknes)
+
+        public FootSoldier(List<string> weaknesses, string name, int id=0)
         {
-            Weaknes = weaknes;
+            Weaknesses = weaknesses;
+            Name = name;
+            Type = "foot soldier";
+            Id = id;
         }
 
         public virtual bool CarryingOutAttack()

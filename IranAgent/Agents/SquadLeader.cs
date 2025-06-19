@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IranAgent.Agents
+namespace IranAgent.Soldier
 {
     public class SquadLeader : FootSoldier
     {
-        public SquadLeader(List<string> weaknes) : base(weaknes)
+        public SquadLeader(List<string> weaknesses, string name, int id=0) : base(weaknesses,name,id)
         {
-            Weaknes = weaknes;
-            Type = "SquadLeader";
+            Weaknesses = weaknesses;
+            Type = "squad leader";
+            Name = name;
+            Id = id;
         }
 
         public override bool CarryingOutAttack()
